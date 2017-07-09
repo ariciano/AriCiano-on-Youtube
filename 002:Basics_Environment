@@ -1,0 +1,31 @@
+// Exploring environment controls with a basic structure to a p5js code
+
+
+//setup only runs once - sets the stage for the entire code
+function setup() {
+	
+	//***windowWidth&Height is of the window's dimensions
+	createCanvas(windowWidth, windowHeight);
+	//***display width&height is of the entire display screen's dimensions
+	//createCanvas(displayWidth, displayHeight);
+	//***the first value becomes the value of width and the second value becomes the value of height
+	//createCanvas(500,600)
+  background(0);
+
+  
+}
+
+//draw is constantly running within the sketch
+function draw() {
+  //rect(20,20,100,100);
+	//***here we use the values of the window's size in "createCanvas" to become our width and height
+	rect(20,20,width/2,height/2)
+  //the descriptions of each object are listed after 
+	fill(255);
+  stroke(240,100,150);
+  strokeWeight(5);
+	
+	//putting "+" allows us to distinguish where each value begins and ends
+	print(mouseX,"+",mouseY);
+}
+
