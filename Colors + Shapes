@@ -1,0 +1,19 @@
+//p5js 
+
+
+function setup() { 
+  createCanvas(650, 650);
+} 
+
+function draw() { 
+  background(217,162,0);
+  rect(350,200,150,150);
+  stroke(255,56,115);
+  strokeWeight(30); 
+  rect(100,100,150,350);
+  stroke(149,134,255);
+  fill(255,83,26); //ORANGE ONE
+  strokeWeight(20);
+  
+  
+}
