@@ -1,0 +1,38 @@
+var sound, amplitude, cnv;
+
+function preload(){
+  sound = loadSound('Be.mp3');
+}
+
+
+function setup() {
+  cnv = createCanvas(650,650);
+  amplitude = new p5.Amplitude();
+
+  // start / stop the sound when canvas is clicked
+  cnv.mouseClicked(function() {
+    if (sound.isPlaying() ){
+      sound.stop();
+    } else {
+      sound.play();
+    }
+  });
+}
+function draw() {
+  background(24,255,194);
+  fill(110,134,255);
+  strokeWeight(10);
+  stroke(255,184,0);
+ 
+  var level = amplitude.getLevel();
+  
+  var size = map(level, 0, 1, 0, 200);
+  
+  ellipse(width/2, height/2, size*2, size*2);
+  
+    ellipse(200, 400, size*2, size*2);
+  
+    ellipse(100, 500, size*2, size*2);
+  
+  
+}
