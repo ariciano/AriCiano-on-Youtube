@@ -1,0 +1,20 @@
+function setup() { 
+  createCanvas(displayWidth, displayHeight);
+  strokeWeight(100);
+  background(86,0,255);
+} 
+function draw() { 
+  stroke(255);
+  }
+function touchMoved() {
+  line(mouseX, mouseY, pmouseX, pmouseY);
+}
+
+function keyPressed () {
+  if (keyCode == UP_ARROW) {
+    saveCanvas("out","png");
+  } else if (keyCode == "DOWN_ARROW") {
+             background (86,0,255);
+}
+return false;
+}
