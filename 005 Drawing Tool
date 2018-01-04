@@ -13,7 +13,7 @@ function touchMoved() {
 function keyPressed () {
   if (keyCode == UP_ARROW) {
     saveCanvas("out","png");
-  } else if (keyCode == "DOWN_ARROW") {
+  } else if (keyCode == DOWN_ARROW) {
              background (86,0,255);
 }
 return false;
