@@ -1,0 +1,454 @@
+// This tutorial was made possible due to the generous support by University of Denver's Clinic For Open Source Arts
+// as I was the first Contributor-In-Residence in March 2019. I used my residency to explore with open source arts, creative
+// technologies, and build tutorials to make these emerging mediums for racially, gender, and socio-economically inclusive.
+
+//HTML 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://unpkg.com/ml5@0.1.3/dist/ml5.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=B612+Mono|Francois+One|Lobster|Permanent+Marker|Righteous|Roboto+Mono|Teko|ZCOOL+KuaiLe" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+    <script src="p5.speech.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.sound.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8" />
+
+  </head>
+  <body>
+    <script src="sketch.js"></script>
+  </body>
+</html>
+
+//sketch.JS****
+
+let video;
+let poseNet;
+let noseX = 0;
+let noseY = 0;
+let eyelX = 0;
+let eyelY = 0;
+let eyerX = 0;
+let eyerY = 0;
+let earlX = 0;
+let earlY = 0;
+let earrX = 0;
+let earrY = 0;
+let sholX = 0;
+let sholY = 0;
+let shorX = 0;
+let shorY = 0;
+let elblX = 0;
+let elblY = 0;
+let elbrX = 0;
+let elbrY = 0;
+let wrilX = 0;
+let wrilY = 0;
+let wrirX = 0;
+let wrirY = 0;
+let hiplX = 0;
+let hiplY = 0;
+let hiprX = 0;
+let hiprY = 0;
+let knelX = 0;
+let knelY = 0;
+let knerX = 0;
+let knerY = 0;
+let anklX = 0;
+let anklY = 0;
+let ankrX = 0;
+let ankrY = 0;
+let wri1 = 50;
+let wri2 = 150;
+let wri3 = 250;
+let p = 0;
+
+var r = 0;
+var g = 0;
+var b = 0;
+
+function setup() {
+  createCanvas(600, 900);
+  video = createCapture(VIDEO);
+  video.hide();
+  poseNet = ml5.poseNet(video, modelReady);
+  poseNet.on('pose', gotPoses);
+}
+
+function gotPoses(poses) { 
+  if (poses.length > 0) {
+    //NOSE 
+    let newX = poses[0].pose.keypoints[0].position.x;
+    let newY = poses[0].pose.keypoints[0].position.y;
+    noseX = lerp(noseX, newX, 0.7);
+    noseY = lerp(noseY, newY, 0.7);
+
+    //LEFT EYE
+    let neweyelX = poses[0].pose.keypoints[1].position.x;
+    let neweyelY = poses[0].pose.keypoints[1].position.y;
+    eyelX = lerp(eyelX, neweyelX, 0.7);
+    eyelY = lerp(eyelY, neweyelY, 0.7);
+
+
+    //RIGHT EYE
+    let neweyerX = poses[0].pose.keypoints[2].position.x;
+    let neweyerY = poses[0].pose.keypoints[2].position.y;
+    eyerX = lerp(eyerX, neweyerX, 0.7);
+    eyerY = lerp(eyerY, neweyerY, 0.7);
+
+    //LEFT EAR
+    let newearlX = poses[0].pose.keypoints[3].position.x;
+    let newearlY = poses[0].pose.keypoints[3].position.y;
+    earlX = lerp(earlX, newearlX, 0.5);
+    earlY = lerp(earlY, newearlY, 0.5);
+
+
+    //RIGHT EAR
+    let newearrX = poses[0].pose.keypoints[4].position.x;
+    let newearrY = poses[0].pose.keypoints[4].position.y;
+    earrX = lerp(earrX, newearrX, 0.5);
+    earrY = lerp(earrY, newearrY, 0.5);
+
+    //LEFT SHOULDER
+    let newsholX = poses[0].pose.keypoints[5].position.x;
+    let newsholY = poses[0].pose.keypoints[5].position.y;
+    sholX = lerp(sholX, newsholX, 0.5);
+    sholY = lerp(sholY, newsholY, 0.5);
+
+    //RIGHT SHOULDER
+    let newshorX = poses[0].pose.keypoints[6].position.x;
+    let newshorY = poses[0].pose.keypoints[6].position.y;
+    shorX = lerp(shorX, newshorX, 0.5);
+    shorY = lerp(shorY, newshorY, 0.5);
+
+    //LEFT ELBOW 
+    let newelblX = poses[0].pose.keypoints[7].position.x;
+    let newelblY = poses[0].pose.keypoints[7].position.y;
+    elblX = lerp(elblX, newelblX, 0.5);
+    elblY = lerp(elblY, newelblY, 0.5);
+
+    //RIGHT ELBOW 
+    let newelbrX = poses[0].pose.keypoints[8].position.x;
+    let newelbrY = poses[0].pose.keypoints[8].position.y;
+    elbrX = lerp(elbrX, newelbrX, 0.5);
+    elbrY = lerp(elbrY, newelbrY, 0.5);
+
+    //LEFT WRIST 
+    let newwrilX = poses[0].pose.keypoints[9].position.x;
+    let newwrilY = poses[0].pose.keypoints[9].position.y;
+    wrilX = lerp(wrilX, newwrilX, 0.5);
+    wrilY = lerp(wrilY, newwrilY, 0.5);
+
+    //RIGHT WRIST 
+    let newwrirX = poses[0].pose.keypoints[10].position.x;
+    let newwrirY = poses[0].pose.keypoints[10].position.y;
+    wrirX = lerp(wrirX, newwrirX, 0.5);
+    wrirY = lerp(wrirY, newwrirY, 0.5);
+
+
+    //LEFT HIP 
+    let newhiplX = poses[0].pose.keypoints[11].position.x;
+    let newhiplY = poses[0].pose.keypoints[11].position.y;
+    hiplX = lerp(hiplX, newhiplX, 0.5);
+    hiplY = lerp(hiplY, newhiplY, 0.5);
+
+
+    //RIGHT HIP 
+    let newhiprX = poses[0].pose.keypoints[12].position.x;
+    let newhiprY = poses[0].pose.keypoints[12].position.y;
+    hiprX = lerp(hiprX, newhiprX, 0.5);
+    hiprY = lerp(hiprY, newhiprY, 0.5);
+
+    //LEFT KNEE 
+    let newknelX = poses[0].pose.keypoints[13].position.x;
+    let newknelY = poses[0].pose.keypoints[13].position.y;
+    knelX = lerp(knelX, newknelX, 0.5);
+    knelY = lerp(knelY, newknelY, 0.5);
+
+    //RIGHT KNEE
+    let newknerX = poses[0].pose.keypoints[14].position.x;
+    let newknerY = poses[0].pose.keypoints[14].position.y;
+    knerX = lerp(knerX, newknerX, 0.5);
+    knerY = lerp(knerY, newknerY, 0.5);
+
+    //LEFT ANKLE
+    let newanklX = poses[0].pose.keypoints[15].position.x;
+    let newanklY = poses[0].pose.keypoints[15].position.y;
+    anklX = lerp(anklX, newanklX, 0.5);
+    anklY = lerp(anklY, newanklY, 0.5);
+
+    //RIGHTANKLE
+    let newankrX = poses[0].pose.keypoints[16].position.x;
+    let newankrY = poses[0].pose.keypoints[16].position.y;
+    ankrX = lerp(ankrX, newankrX, 0.5);
+    ankrY = lerp(ankrY, newankrY, 0.5);
+
+  }
+}
+
+function modelReady() {
+  console.log('issa ready');
+}
+
+function draw() {
+  background(r,g,b, 200);
+  push();
+  noFill();
+  gradientc = 0 + frameCount;
+  if (gradientc > 245) {
+    gradientc = 1;
+  }
+
+  stroke(gradientc);
+  strokeWeight(20);
+  fill(r, g, b);
+  rect(0, 0, width, height)
+  pop();
+  //filter(GRAY);
+  let d = dist(noseX, noseY, eyelX, eyelY);
+  //NOSE
+  push();
+  fill('#FFB2B1');
+  noStroke();
+  ellipse(noseX, noseY, d);
+  pop();
+  
+//   if (noseX < 100 && noseX > 20) {
+//   r = 255;
+//   g = 0;
+//   b = 0;
+// } else {
+//   r = 0;
+//   g = 0;
+//   b = 0;
+// }
+  
+
+  //LEFTEYE
+  push();
+  fill('#FF4841');
+  noStroke();
+  ellipse(eyelX, eyelY, d);
+  pop();
+
+  //RIGHTEYE
+  push();
+  fill('#FF4841');
+  noStroke();
+  ellipse(eyerX, eyerY, d);
+  pop();
+
+  //LEFT EAR
+  push();
+  fill('#FF4841');
+  noStroke();
+  ellipse(earlX, earlY, d - 30);
+  pop();
+
+  //RIGHT EAR
+  push();
+  fill('#FF4841');
+  noStroke();
+  ellipse(earrX, earrY, d - 30);
+  pop();
+
+  // let d01 = dist(sholX, sholY, shorX, shorY);
+  //LEFT SHO
+  push();
+  fill('#FF4841');
+  noStroke();
+  ellipse(sholX, sholY, d / 2);
+  pop();
+
+  //RIGHT SHO
+  push();
+  fill('#FF4841');
+  noStroke();
+  ellipse(shorX, shorY, d / 2);
+  pop();
+
+  //LEFT ELBOW
+  push();
+  fill('#8082FF');
+  noStroke();
+  ellipse(elblX, elblY, d);
+  pop();
+
+  //RIGHT ELBOW
+  push();
+  fill('#8082FF');
+  noStroke();
+  ellipse(elbrX, elbrY, d);
+  pop();
+
+  //LEFT WRIST
+  fill('#8082FF');
+  noStroke();
+  ellipse(wrilX, wrilY, d);
+
+  //RIGHT WRIST
+  fill('#8082FF');
+  noStroke();
+  ellipse(wrirX, wrirY, d);
+
+  var dw = int(dist(wrilX, wrilY, wrirX, wrirY));
+  push();
+  translate((wrilX + wrirX) / 2, (wrilY + wrirY) / 2);
+  //rotate(atan2(wrirY - wrilY, wrirX - wrilX));
+  fill(255);
+  textSize(20);
+  textFont('Roboto Mono');
+  text(nfc(dw, 1), 0, -5);
+  pop();
+
+  if (dw > 200 && dw < 300) {
+    wri1 = 200;
+    wri2 = 200;
+    wri3 = 100;
+  } else {
+    wri1 = 50;
+    wri2 = 150;
+    wri3 = 250;
+  }
+
+  //LEFT HIP
+  fill('#8082FF');
+  noStroke();
+  ellipse(hiplX, hiplY, d / 2);
+
+  //RIGHT HIP
+  fill('#8082FF');
+  noStroke();
+  ellipse(hiprX, hiprY, d / 2);
+
+  //LEFT KNEE
+  fill('#8082FF');
+  noStroke();
+  ellipse(knelX, knelY, d / 2);
+
+  //RIGHT KNEE
+  fill('#8082FF');
+  noStroke();
+  ellipse(knerX, knerY, d / 2);
+
+  //LEFT ANKLE
+  fill('#8082FF');
+  noStroke();
+  ellipse(anklX, anklY, d / 2);
+
+  //RIGHT ANKLE
+  fill('#8082FF');
+  noStroke();
+  ellipse(ankrX, ankrY, d / 2);
+
+  //MOUTH
+  fill('#8082FF');
+  noStroke();
+  ellipse(noseX, noseY + 60, 60, d / 2);
+
+  //----------------------------
+
+  //FOREHEAD LINE
+  stroke(255);
+  noFill();
+  bezier(earrX, earrY, noseX - 50, noseY - 100, noseX + 50, noseY - 100, earlX, earlY);
+
+  //LINE WRISTS
+  stroke(189, 189, 255, 100);
+  line(wrilX, wrilY, wrirX, wrirY);
+
+  push();
+  strokeWeight(2);
+  //LINE SHOULDERS
+  stroke(255);
+  line(sholX, sholY, shorX, shorY);
+
+  //LINE LEFT SHOULDERS to WRISTS
+  stroke(255);
+  line(sholX, sholY, wrilX, wrilY);
+
+  //LINE RIGHT SHOULDERS to WRISTS
+  stroke(255);
+  line(shorX, shorY, wrirX, wrirY);
+  pop();
+
+
+  //LINE EYE NOSE
+  stroke(255);
+  line(eyelX, eyelY, noseX, noseY);
+
+  //LINE LEFT EYE EAR
+  stroke(255);
+  line(eyelX, eyelY, earlX, earlY);
+
+  //LINE RIGHT EYE EAR
+  stroke(255);
+  line(eyerX, eyerY, earrX, earrY);
+
+  //LINE RIGHT EYE MOUTH
+  stroke(255);
+  line(eyerX, eyerY, noseX, noseY + 70);
+
+  //LINE MOUTH LEFT SHOULDER
+  stroke(255);
+  line(noseX, noseY + 70, sholX, sholY);
+
+  //LINE MOUTH RIGHT SHOULDER
+  stroke(255);
+  line(noseX, noseY + 70, shorX, shorY);
+
+  //LINE RIGHT EYE MOUTH
+  stroke(255);
+  line(eyelX, eyelY, noseX, noseY + 70);
+
+
+  //LINE HIPS
+  stroke(255);
+  line(hiplX, hiplY, hiprX, hiprY);
+
+  //LINE LEFT  THIGHS
+  stroke(255);
+  line(hiplX, hiplY, knelX, knelY);
+
+  //LINE RIGHT THIGHS
+  stroke(255);
+  line(hiprX, hiprY, knerX, knerY);
+
+  //LINE LEFT  CALVES
+  stroke(255);
+  line(knelX, knelY, anklX, anklY);
+
+  //LINE RIGHT CALVES
+  stroke(255);
+  line(knerX, knerY, ankrX, ankrY);
+
+  //LINE RIGHT EYE NOSE
+  push();
+  stroke(255);
+  line(eyerX, eyerY, noseX, noseY);
+  pop();
+
+  //LINE LEFT EYE NOSE
+  push();
+  stroke(255);
+  line(eyelX, eyelY, noseX, noseY);
+  pop();
+
+
+  //LINE LEFT EAR MOUTH
+  push();
+  stroke(255);
+  line(earlX, earlY, noseX, noseY + 70);
+  pop();
+
+  //LINE RIGHT EAR MOUTH
+  push();
+  stroke(255);
+  line(earrX, earrY, noseX, noseY + 70);
+  pop();
+
+print(noseX);
+
+}
