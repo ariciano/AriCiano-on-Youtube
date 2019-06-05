@@ -1,0 +1,89 @@
+Include the tone library into you html file by adding this line:
+<script src="https://unpkg.com/tone"></script>
+
+And here's the js file's code:
+
+----------------------------
+
+
+var synth = new Tone.Synth().toMaster();
+var r = 0;
+var g = 0;
+var b = 0;
+
+//ellipse placement and size
+var ex = 0;
+var ey = 0;
+var ew = 0;
+var eh = 0;
+
+var movex = 'false';
+var movey = 'false';
+
+
+function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(r,g,b);
+  noStroke();
+  fill(b,g,r);
+  ellipse(ex,ey, ew,eh);
+  
+  if (movex == 'true') {
+    ex = ex + 10;
+  } else {
+    ex = ex;
+  }
+  
+  if (movey == 'true') {
+    ey = ey + 10;
+  } else {
+    ey = ey;
+  }
+  
+}
+
+function keyPressed() {
+  if (event.key == 'a') {
+    r = 105;
+    g = 195;
+    b = 205;
+    
+    ex = 200;
+    ey = 100;
+    ew = 50;
+    eh = 50;
+    
+    movex = 'true';
+    movey = 'false';
+    synth.triggerAttackRelease('C5', '8n')
+  } else if (event.key == 's') {
+    r = 105;
+    g = 55;
+    b = 185;
+    
+    ex = 100;
+    ey = 200;
+    ew = 100;
+    eh = 100;
+    
+    movex = 'false';
+    movey = 'true';
+    synth.triggerAttackRelease('D5', '8n')
+  } else if (event.key == 'd') {
+    r = 205;
+    g = 55;
+    b = 125;
+    
+    ex = 50;
+    ey = 100;
+    ew = 200;
+    eh = 200;
+    
+    movex = 'true';
+    movey = 'true';
+    synth.triggerAttackRelease('E5', '8n')
+  }
+}
