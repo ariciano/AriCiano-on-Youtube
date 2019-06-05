@@ -1,9 +1,14 @@
-Include the tone library into you html file by adding this line:
-<script src="https://unpkg.com/tone"></script>
+// This tutorial was made possible due to the generous support by University of Denver's Clinic For Open Source Arts
+// as I was the first Contributor-In-Residence in March 2019. I used my residency to explore with open source arts, creative
+// technologies, and build tutorials to make these emerging mediums for racially, gender, and socio-economically inclusive.
 
-And here's the js file's code:
 
-----------------------------
+// Include the tone library into you html file by adding this line:
+// <script src="https://unpkg.com/tone"></script>
+
+// And here's the js file's code:
+
+//----------------------------
 
 
 var synth = new Tone.Synth().toMaster();
